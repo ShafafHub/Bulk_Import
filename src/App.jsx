@@ -66,6 +66,26 @@ function App() {
     });
   };
 
+  const handleExport = () => {
+    if (correctRows.length === 0) return;
+
+    const csv = Papa.unparse(correctRows);
+
+    const blob = new Blob([csv], {
+      type: "text/csv;charset=utf-8;",
+    });
+
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", "correct_products.csv");
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="app">
       <div className="card">
@@ -129,7 +149,9 @@ function App() {
                     </tbody>
                   </table>
 
-                  <button className="export-btn">⬇ Export CSV</button>
+                  <button className="export-btn" onClick={handleExport}>
+                    ⬇ Export CSV
+                  </button>
                 </>
               )}
             </div>
