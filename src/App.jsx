@@ -4,8 +4,10 @@ import "./App.css";
 
 function App() {
   const [file, setFile] = useState(null);
-  const [rows, setRows] = useState([]);
   const [processed, setProcessed] = useState(false);
+
+  const [correctRows, setCorrectRows] = useState([]);
+  const [wrongRows, setWrongRows] = useState([]);
 
   const handleFileChange = (e) => {
     const selected = e.target.files[0];
@@ -17,6 +19,22 @@ function App() {
 
     setFile(selected);
     setProcessed(false);
+    setCorrectRows([]);
+    setWrongRows([]);
+  };
+
+  const validateRow = (row) => {
+    const errors = [];
+
+    if (!row.name || row.name.trim() === "") {
+      errors.push("Name is empty");
+    }
+
+    if (!row.price || isNaN(row.price) || Number(row.price) < 0) {
+      errors.push("Invalid price");
+    }
+
+    return errors;
   };
 
   const handleProcess = () => {
@@ -26,7 +44,23 @@ function App() {
       header: true,
       skipEmptyLines: true,
       complete: (results) => {
-        setRows(results.data);
+        const data = results.data;
+
+        const correct = [];
+        const wrong = [];
+
+        data.forEach((row) => {
+          const errors = validateRow(row);
+
+          if (errors.length > 0) {
+            wrong.push({ ...row, error: errors.join(", ") });
+          } else {
+            correct.push(row);
+          }
+        });
+
+        setCorrectRows(correct);
+        setWrongRows(wrong);
         setProcessed(true);
       },
     });
@@ -35,7 +69,7 @@ function App() {
   return (
     <div className="app">
       <div className="card">
-        <h2 className="title">Bulk Import</h2>
+        <h2 className="title"> Bulk Import</h2>
 
         <div className="upload-box">
           <input type="file" onChange={handleFileChange} />
@@ -53,27 +87,58 @@ function App() {
             <div className="result-box">
               <div className="result-item">
                 <p>All Rows</p>
-                <h2>{rows.length}</h2>
+                <h2>{correctRows.length + wrongRows.length}</h2>
               </div>
 
               <div className="result-item">
                 <p>Failed Rows</p>
-                <h2>0</h2>
+                <h2>{wrongRows.length}</h2>
               </div>
 
               <div className="result-item">
                 <p>Correct Rows</p>
-                <h2>{rows.length}</h2>
+                <h2>{correctRows.length}</h2>
               </div>
             </div>
           </div>
 
           <div className="tables">
             <div className="table-box">
-              <h3 className="table-title">Correct Rows</h3>
+              <h3 className="table-title">✅ Correct Rows</h3>
 
-              {rows.length === 0 ? (
-                <p className="empty">No data</p>
+              {correctRows.length === 0 ? (
+                <p className="empty">No valid data</p>
+              ) : (
+                <>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Category</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {correctRows.map((row, i) => (
+                        <tr key={i} className="row-success">
+                          <td>{row.name}</td>
+                          <td>{row.price}</td>
+                          <td>{row.categoryId}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+
+                  <button className="export-btn">⬇ Export CSV</button>
+                </>
+              )}
+            </div>
+
+            <div className="table-box">
+              <h3 className="table-title">❌ Wrong Rows</h3>
+
+              {wrongRows.length === 0 ? (
+                <p className="empty">No errors</p>
               ) : (
                 <table>
                   <thead>
@@ -81,25 +146,21 @@ function App() {
                       <th>Name</th>
                       <th>Price</th>
                       <th>Category</th>
+                      <th>Error</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {rows.map((row, i) => (
-                      <tr key={i}>
-                        <td>{row.name}</td>
+                    {wrongRows.map((row, i) => (
+                      <tr key={i} className="row-error">
+                        <td>{row.name || "-"}</td>
                         <td>{row.price}</td>
                         <td>{row.categoryId}</td>
+                        <td>{row.error}</td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               )}
-
-              <button className="export-btn">Export CSV</button>
-            </div>
-            <div className="table-box">
-              <h3 className="table-title">Failed Rows</h3>
-              <p className="empty">No errors yet</p>
             </div>
           </div>
         </>
