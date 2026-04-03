@@ -1,16 +1,47 @@
-# React + Vite
+# Bulk Import (Week07)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple React application for uploading, validating, and exporting CSV product data.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
 
-## React Compiler
+- Upload CSV file
+- Parse CSV using PapaParse
+- Validate rows (name & price)
+- Separate valid and invalid rows
+- Display results in tables
+- Export valid rows as new CSV file
+- Clean and modern UI
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## CSV Format
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+Your CSV file must follow this structure:
+name,price,categoryId
+Laptop Stand,39.99,c1
+USB-C Hub,24.5,c2
+Notebook,5.25,c1
+Water Bottle,12,c3
+```
+
+---
+
+## Installation
+
+```bash
+git clone https://github.com/ShafafHub/Bulk_Import.git
+cd Blul_import
+npm install
+npm run dev
+```
+
+---
+
+## Demo Video Link
+
+```bash
+https://drive.google.com/file/d/1dXId4FMimGbwnWEqB2ihnkxhA5FK0IuS/view?usp=sharing
+```
