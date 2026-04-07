@@ -1,0 +1,165 @@
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.app {
+  padding: 40px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.card {
+  background: #1e293b;
+  border-radius: 14px;
+  padding: 25px;
+  margin-bottom: 25px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.upload-box {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+input[type="file"] {
+  padding: 10px;
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  color: white;
+}
+
+button {
+  background: #3b82f6;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #2563eb;
+}
+
+button:disabled {
+  background: #475569;
+  cursor: not-allowed;
+}
+
+.result-box {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+}
+
+.result-item {
+  background: #0f172a;
+  padding: 15px 25px;
+  border-radius: 10px;
+}
+
+.tables {
+  display: flex;
+  gap: 20px;
+}
+
+.table-box {
+  flex: 1;
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.table-title {
+  margin-bottom: 10px;
+}
+
+.empty {
+  opacity: 0.5;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.export-btn {
+  margin-top: 20px;
+  width: 100%;
+  background: #22c55e;
+}
+
+.export-btn:hover {
+  background: #16a34a;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+thead {
+  background: #334155;
+}
+
+thead th {
+  padding: 12px;
+  text-align: left;
+  font-size: 14px;
+  color: #cbd5f5;
+}
+
+tbody tr {
+  transition: 0.2s;
+  border-bottom: 1px solid #1e293b;
+}
+
+tbody tr:hover {
+  background: #0f172a;
+}
+
+td {
+  padding: 12px;
+  font-size: 14px;
+}
+
+tbody tr:nth-child(even) {
+  background: #020617;
+}
+
+.table-box {
+  flex: 1;
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 12px;
+  max-height: 400px;
+  overflow: auto;
+}
+
+thead th {
+  position: sticky;
+  top: 0;
+}
+
+.table-title {
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.empty {
+  opacity: 0.5;
+  text-align: center;
+  margin-top: 60px;
+  font-size: 14px;
+}
